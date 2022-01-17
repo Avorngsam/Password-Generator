@@ -11,17 +11,25 @@ var generateBtn = document.querySelector("#generate");
 
 /// Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  var correctPrompts = getPrompts();
 
-  passwordText.value = password;
+  if (correctPrompts) {
+    var password = generatePassword();
+    var passwordText = document.querySelector("#password");
+    
+    passwordText.value = password;
 
+  }
+  
 }
 
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
-
- function generatePassword() {
+function generatePassword() {
+  var password = "";
+  for(var i = 0; i < characterLength; i++ ) {
+    var randomIndex = Math.floor(Math.random() * choiceArr.length);
+    password = password + choiceArr[randomIndex];
+  }
+  return password;
 }
 
 function getPrompts() {
@@ -47,3 +55,6 @@ function getPrompts() {
   }
   return true;
 }
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
